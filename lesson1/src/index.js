@@ -65,7 +65,76 @@ const arr = ["s","f", "g"]; // объявление массива
 // delete user.isAdmin;
 // console.log(user); // { name: 'Jon', age: 30 }
 //=========Копирование объектов==================
-let user = {name:"Иван"};
-let admin  = user; // переменная admin ссылается на тот же объект, что и user
-console.log(admin); // { name: 'Иван' }
-  
+// let user = {name:"Иван"};
+// let admin  = user; // переменная admin ссылается на тот же объект, что и user
+// console.log(admin); // { name: 'Иван' }
+// admin.name = 'Петя';
+// console.log(user.name); // Петя
+//========Копирование объектов без ссылания переменной на один и тот же объект===========
+// let user1 = {name:"Иван"};
+// let user2 = {age: 30};
+// let newUser = {};
+// Object.assign(newUser, user1, user2); // копирование через метод assign
+// //console.log(newUser); // -> { name: 'Иван', age: 30 }
+// let newUser2 = {...user1, ...user2};
+// console.log(newUser2); // -> { name: 'Иван', age: 30 }
+//=====================================================================================
+
+// let user = {
+//   name: "Jon",
+//   age: 30
+// };
+//==============Перебор объектов===========================
+//==Цикл for...in===
+// for(let key in user) {
+//   //console.log(key); // -> name, age
+//   console.log(user[key]); // -> Jon, 30
+// }
+
+//===Object.keys, values, entries====
+// const keys = Object.keys(user); // возвращает массив ключей
+// console.log(keys); // -> [ 'name', 'age' ]
+// const values = Object.values(user); // Возвращает массив значений
+// console.log(values); // -> [ 'Jon', 30 ]
+// const entries = Object.entries(user); // возвращает массив ключей и массив значений внутри массива
+// console.log(entries); // -> [ [ 'name', 'Jon' ], [ 'age', 30 ] ]
+
+// //===fromEntries===
+// const fromEntries = Object.fromEntries(entries); // форматирует массив массивов из entries и преобразует их в объект
+// console.log(fromEntries); // -> { name: 'Jon', age: 30 }
+//===================================================================================================================
+
+//================Объявление метода объект=================================
+// function sayHi() {
+//   console.log("Привет!");
+// }
+
+// let user = {
+//   name: "Jon",
+//   age: 30,
+//   sayName: function sayName() { // cоздание метода объекта
+//     console.log('Name: ' + this.name);
+//   },
+//   sayAge() {
+//     console.log('Age: ' + this.age);
+//   },
+//   sayHi:sayHi
+// };
+// user.sayName(); // -> Name: Jon
+// user.sayAge(); // => Age: 30
+// user.sayHi(); // => Привет!
+//===========================================================================================
+
+//==============Конструкторы, "New" ===================================================
+function User(name) { // создание конструктура User
+  this.name = name;
+  this.isAdmin = false;
+  this.sayHi = function () {
+    console.log("Меня зовут " + this.name);
+  };
+}
+
+let user = new User("Вася"); // создание объекта User
+ console.log(user.name); // => Вася
+ console.log(user.isAdmin); // => false
+ user.sayHi(); // => Меня зовут Вася
